@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Log4Grid.Interfaces
 {
@@ -10,6 +7,5 @@ namespace Log4Grid.Interfaces
         void Stat(Models.StatModel e);
         IList<Models.ApplicationData> ListApp();
         void CleanApp();
-      
     }
 }

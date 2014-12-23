@@ -2,45 +2,51 @@
 @{
     Layout = null;
 }
-  <div class="table-responsive" style="padding: 2px; width: 700px;">
-   @RenderPage("~/views/controls/pagebar.cshtml", new { pageindex = Model.PageIndex, pagecount = Model.Pages, baseurl = "/questions/" })
-                    <table class="table table-hover" style="width: 700px;">
-                        <thead>
-                            <tr>
-                             <th style="width:60px;">
-                             Type
-                             </th>
-                                <th style="width: 140px;">
-                                    CreateTime
-                                </th>
-                                <th>
-                                    Message
-                                </th>
-                                 <th style="width: 120px;">
-                                    Host
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-@foreach (Log4Grid.Models.LogModel item in Model.Logs)
-{
-                            <tr >
-                            <td style="padding-top:12px;"> <span class="label label-@Log4Grid.Management.Web.Codes.Utils.GetRowClass(item.Type)" >
+<div class="table-responsive" style="padding:2px; width:700px;">
+    @RenderPage("~/views/controls/pagebar.cshtml", new {pageindex = Model.PageIndex, pagecount = Model.Pages, baseurl = "/questions/"})
+    <table class="table table-hover" style="width: 700px;">
+        <thead>
+        <tr>
+            <th style="width:80px;text-align:center;">
+                日志类型
+            </th>
+            <th style="width:200px;text-align:center;">
+                创建时间
+            </th>
+            <th>
+                日志内容
+            </th>
+            <th style="width:140px;">
+                日志来源
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Log4Grid.Models.LogModel item in Model.Logs)
+        {
+            <tr>
+                <td style="padding-top:12px;">
+                    <span class="label label-@Log4Grid.Management.Web.Codes.Utils.GetRowClass(item.Type)">
                             @item.Type
-                            </span>
-                            </td>
-                                <td>
-                                   @item.CreateTime
-                                </td>
-                                <td>
-                                    @item.Content
-                                </td>
-                                 <td>
-                                    @item.Host
-                                </td>
-                            </tr>
-}
-                        </tbody>
-                    </table>
-                    @RenderPage("~/views/controls/pagebar.cshtml", new { pageindex = Model.PageIndex, pagecount = Model.Pages, baseurl = "/questions/" })
-                </div>
+                        </span>
+                </td>
+                <td>
+                    @item.CreateTime.ToString("yyyy-MM-dd HH:mm:ss.ffff")
+                </td>
+                <td>
+                    @item.Content
+                </td>
+                <td>
+                    @item.Host
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    @RenderPage("~/views/controls/pagebar.cshtml", new {pageindex = Model.PageIndex, pagecount = Model.Pages, baseurl = "/questions/"})
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#app-title").val("日志记录列表");
+    });
+</script>

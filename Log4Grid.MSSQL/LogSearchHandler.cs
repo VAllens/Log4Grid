@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Peanut;
+﻿using Peanut;
+
 namespace Log4Grid.MSSQL
 {
-    public class LogSearch4MSSQL:Log4Grid.DataAccess.LogSearchHandlerBase<Peanut.MSSQL>
+    public class LogSearch4Mssql : DataAccess.LogSearchHandlerBase<Peanut.MSSQL>
     {
         protected override bool Exists(string table)
         {

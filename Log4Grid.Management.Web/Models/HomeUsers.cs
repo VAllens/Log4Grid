@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Log4Grid.Management.Web.Models
 {
@@ -11,10 +8,7 @@ namespace Log4Grid.Management.Web.Models
         {
             Users = new List<Log4Grid.Models.User>();
         }
-        public IList<Log4Grid.Models.User> Users
-        {
-            get;
-            set;
-        }
+
+        public IList<Log4Grid.Models.User> Users { get; set; }
     }
 }

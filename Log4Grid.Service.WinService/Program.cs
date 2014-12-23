@@ -1,36 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceProcess;
-using System.Text;
-using System.ComponentModel;
-using System.Xml;
+﻿using System.ComponentModel;
 using System.Configuration.Install;
+using System.ServiceProcess;
 
 namespace Log4Grid.Service.WinService
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
-        static void Main()
+        private static void Main()
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-			{ 
-				new Log4GridService() 
-			};
-            ServiceBase.Run(ServicesToRun);
+            var servicesToRun = new ServiceBase[]
+            {
+                new Log4GridService()
+            };
+            ServiceBase.Run(servicesToRun);
         }
     }
+
     [RunInstaller(true)]
     public class WindowsServiceInstaller : Installer
     {
-
         public WindowsServiceInstaller()
         {
-        
             ServiceProcessInstaller serviceProcessInstaller = new ServiceProcessInstaller();
             ServiceInstaller serviceInstaller = new ServiceInstaller();
 
@@ -44,7 +37,8 @@ namespace Log4Grid.Service.WinService
             serviceInstaller.StartType = ServiceStartMode.Automatic;
 
 
-            serviceInstaller.ServiceName = "Log4Grid Service";
+            serviceInstaller.ServiceName = "Log4GridService";
+            serviceInstaller.Description = "Log4Grid日志收集服务";
 
             this.Installers.Add(serviceProcessInstaller);
             this.Installers.Add(serviceInstaller);

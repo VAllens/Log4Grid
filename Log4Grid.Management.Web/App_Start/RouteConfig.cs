@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace Log4Grid.Management.Web
@@ -13,31 +9,31 @@ namespace Log4Grid.Management.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
-           name: "Users",
-           url: "Users",
-           defaults: new { controller = "Home", action = "Users", id = UrlParameter.Optional }
-       );
+                name: "Users",
+                url: "Users",
+                defaults: new {controller = "Home", action = "Users", id = UrlParameter.Optional}
+                );
 
             routes.MapRoute(
-             name: "CreateUser",
-             url: "CreateUser",
-             defaults: new { controller = "Home", action = "CreateUser", id = UrlParameter.Optional }
-         );
+                name: "CreateUser",
+                url: "CreateUser",
+                defaults: new {controller = "Home", action = "CreateUser", id = UrlParameter.Optional}
+                );
             routes.MapRoute(
-           name: "SingOut",
-           url: "SingOut",
-           defaults: new { controller = "Home", action = "SingOut", id = UrlParameter.Optional }
-       );
+                name: "Logout",
+                url: "Logout",
+                defaults: new { controller = "Home", action = "Logout", id = UrlParameter.Optional }
+                );
             routes.MapRoute(
-              name: "Singin",
-              url: "Singin",
-              defaults: new { controller = "Home", action = "Login", id = UrlParameter.Optional }
-          );
+                name: "Login",
+                url: "Login",
+                defaults: new {controller = "Home", action = "Login", id = UrlParameter.Optional}
+                );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+                defaults: new {controller = "Home", action = "Index", id = UrlParameter.Optional}
+                );
         }
     }
 }

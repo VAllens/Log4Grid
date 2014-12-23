@@ -1,45 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Security.Cryptography;
 using System.Text;
-using Peanut;
-using System.Security.Cryptography;
 using Log4Grid.DBModels;
+using Peanut;
 
 namespace Log4Grid.DataAccess
 {
-    public abstract class LogStoreHandlerBase<T> : Log4Grid.Interfaces.ILogStoreHandler where T:IDriver,new()
+    public abstract class LogStoreHandlerBase<T> : Interfaces.ILogStoreHandler where T : IDriver, new()
     {
         public virtual DB DB
         {
-            get
-            {
-                return Peanut.DB.DB104;
-            }
+            get { return DB.DB104; }
         }
-        private string mConnectionString;
+
+        private string _mConnectionString;
+
         public string ConnectionString
         {
-            get
-            {
-                return mConnectionString;
-
-            }
+            get { return _mConnectionString; }
             set
             {
-                mConnectionString = value;
-                DBContext.LoadEntityByAssembly(typeof(Log4Grid.DBModels.DBHost).Assembly);
+                _mConnectionString = value;
+                DBContext.LoadEntityByAssembly(typeof (DBHost).Assembly);
                 DBContext.SetConnectionDriver<T>(DB);
                 DBContext.SetConnectionString(DB, value);
             }
         }
+
         protected abstract bool Exists(string table);
         protected abstract void OnCreateTable(string table);
-        private static object mLockCreateTable = new object();
+        private static readonly object MLockCreateTable = new object();
+
         private void CreateTabel(string name)
         {
-
-            lock (mLockCreateTable)
+            lock (MLockCreateTable)
             {
                 if (!Exists(name))
                 {
@@ -47,9 +40,9 @@ namespace Log4Grid.DataAccess
                 }
             }
         }
+
         public string MD5Encoding(string rawPass)
         {
-
             MD5 md5 = MD5.Create();
             byte[] bs = Encoding.UTF8.GetBytes(rawPass);
             byte[] hs = md5.ComputeHash(bs);
@@ -60,6 +53,7 @@ namespace Log4Grid.DataAccess
             }
             return sb.ToString();
         }
+
         public void Add(Models.LogModel e)
         {
             string name = "tbl_" + MD5Encoding(e.App);
@@ -75,6 +69,7 @@ namespace Log4Grid.DataAccess
                 log.Save(DB);
             }
         }
+
         public void Clean(string app, string host)
         {
             string name = "tbl_" + MD5Encoding(app);
@@ -88,11 +83,10 @@ namespace Log4Grid.DataAccess
                 sql = sql["p2", host];
             }
             sql.Execute(DB);
-
         }
+
         public void Backup(string app, string host)
         {
-
         }
     }
 }

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Peanut;
-using System.Security.Cryptography;
+﻿using Peanut;
 
 namespace Log4Grid.Sqlite
 {
-    public class LogStore4Sqlite : Log4Grid.DataAccess.LogStoreHandlerBase<SqliteDriver>
+    public class LogStore4Sqlite : DataAccess.LogStoreHandlerBase<SqliteDriver>
     {
         protected override bool Exists(string table)
         {

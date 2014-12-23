@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Security;
 using Log4Grid.Models;
+
 namespace Log4Grid.Management.Web.Codes
 {
     public class Utils
     {
-        private static Config.InterfaceFactory mFactory = new Config.InterfaceFactory();
+        private static readonly Config.InterfaceFactory MFactory = new Config.InterfaceFactory();
+
         public static User User
         {
             get
@@ -21,15 +22,15 @@ namespace Log4Grid.Management.Web.Codes
                     {
                         FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(loginer.Value);
                         string userid = ticket.Name;
-                        User user = mFactory.User.Exists(userid);
+                        User user = MFactory.User.Exists(userid);
                         dict["_LOGINER"] = user;
                     }
                     dict["_ISLOAD_USER"] = true;
                 }
-                return (User)dict["_LOGINER"];
+                return (User) dict["_LOGINER"];
             }
-
         }
+
         public static void SetLogin(string name)
         {
             FormsAuthentication.SetAuthCookie(name, true);
@@ -38,6 +39,7 @@ namespace Log4Grid.Management.Web.Codes
             HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
             HttpContext.Current.Response.Cookies.Add(cookie);
         }
+
         public static void Signout()
         {
             if (HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName] != null)
@@ -48,29 +50,31 @@ namespace Log4Grid.Management.Web.Codes
             }
         }
 
-        private static Dictionary<Log4Grid.Models.LogType, string> mClass;
+        private static Dictionary<LogType, string> _mClass;
 
-        private static object mLockClass = new object();
+        private static readonly object MLockClass = new object();
 
-        public static Dictionary<Log4Grid.Models.LogType, string> Class
+        public static Dictionary<LogType, string> Class
         {
             get
             {
-                lock (mLockClass)
+                lock (MLockClass)
                 {
-                    if (mClass == null)
+                    if (_mClass == null)
                     {
-                        mClass = new Dictionary<LogType, string>();
-                        mClass.Add(LogType.Error, "danger");
-                        mClass.Add(LogType.Warn, "warning");
-                        mClass.Add(LogType.Debug, "info");
+                        _mClass = new Dictionary<LogType, string>();
+                        _mClass.Add(LogType.Error, "danger");
+                        _mClass.Add(LogType.Warn, "warning");
+                        _mClass.Add(LogType.Info, "info");
+                        _mClass.Add(LogType.Debug, "debug");
+                        _mClass.Add(LogType.Fatal, "fatal");
                     }
-                    return mClass;
+                    return _mClass;
                 }
             }
         }
 
-        public static string GetRowClass(Log4Grid.Models.LogType type)
+        public static string GetRowClass(LogType type)
         {
             string value = null;
             if (!Class.TryGetValue(type, out value))
@@ -78,7 +82,6 @@ namespace Log4Grid.Management.Web.Codes
                 value = "active";
             }
             return value;
-
         }
     }
 }

@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Peanut;
-using System.Security.Cryptography;
+﻿using Peanut;
 
 namespace Log4Grid.MSSQL
 {
-    public class LogStore4MSSQL : Log4Grid.DataAccess.LogStoreHandlerBase<Peanut.MSSQL>
+    public class LogStore4Mssql : DataAccess.LogStoreHandlerBase<Peanut.MSSQL>
     {
         protected override bool Exists(string table)
         {
-
             SQL sql = "SELECT count(*) FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[" + table + "]') AND type in (N'U')";
             return sql.GetValue<long>(DB) > 0;
         }
 
         protected override void OnCreateTable(string table)
         {
-
             SQL sql = string.Format(@"CREATE TABLE [dbo].[{0}](
 	[ID] [varchar](50) NOT NULL,
 	[Host] [varchar](200) NULL,
@@ -38,8 +31,6 @@ CREATE NONCLUSTERED INDEX [IX_{0}_CreateTime] ON [dbo].[TBL_Log]
 ;", table);
 
             sql.Execute(DB);
-          
-
         }
     }
 }

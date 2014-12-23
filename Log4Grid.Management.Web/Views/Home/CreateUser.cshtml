@@ -1,36 +1,32 @@
 ﻿@model System.String
-  <br />
-    <br />
-
-      <br />
+<br/>
+<br/>
+<br/>
 <div class="panel panel-default" style="margin: auto; width: 400px;">
-    <div class="panel-heading">
-        Create User</div>
+    <div class="panel-heading">分布式日志记录收集管理系统 - 创建用户</div>
     <div class="panel-body">
-    <span class="label label-warning">@Model</span>
-    <form method="post" action="CreateUser?post=true"  enctype="application/x-www-form-urlencoded">
-     <br />
-        <div class="input-group">
-            <span class="input-group-addon" style="min-width:100px;">UserName</span>
-            <input type="text" style="min-width:100px;" class="form-control" name="name" placeholder="Username">
-        </div>
-        <br />
-        <div class="input-group">
-        <span class="input-group-addon" style="min-width:100px;">PassWord</span>
-            <input type="password" style="min-width:100px;" class="form-control" name="pwd"  placeholder="Password">
-            
-        </div>
-        <br />
-         <div class="input-group">
-        <span class="input-group-addon" style="min-width:100px;">Confirm</span>
-            <input type="password" style="min-width:100px;" class="form-control" name="rpwd"  placeholder="Confirm Password">
-            
-        </div>
-        <br />
-        <div class="input-group">
-            <a class="btn btn-default" style="margin-left:200px;float:left;margin-right:20px;" href="/Users">Users</a>
-            <button class="btn btn-default" style="float:right;" type="submit" >Create</button>
-        </div>
+        <span class="label label-warning">@Model</span>
+        <form method="post" action="CreateUser?post=true" enctype="application/x-www-form-urlencoded">
+            <br/>
+            <div class="input-group">
+                <span class="input-group-addon" style="min-width:100px;">用户名</span>
+                <input type="text" style="min-width:100px;" class="form-control" name="name" placeholder="用户名">
+            </div>
+            <br/>
+            <div class="input-group">
+                <span class="input-group-addon" style="min-width:100px;">密码</span>
+                <input type="password" style="min-width:100px;" class="form-control" name="pwd" placeholder="密码">
+            </div>
+            <br/>
+            <div class="input-group">
+                <span class="input-group-addon" style="min-width:100px;">确认密码</span>
+                <input type="password" style="min-width:100px;" class="form-control" name="rpwd" placeholder="确认密码">
+            </div>
+            <br/>
+            <div class="input-group">
+                <a class="btn btn-default" style="margin-left:200px;float:left;margin-right:20px;" href="/Users">用户列表</a>
+                <button class="btn btn-default" style="float:right;" type="submit">创建</button>
+            </div>
         </form>
     </div>
 </div>

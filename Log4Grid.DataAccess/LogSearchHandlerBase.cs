@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Peanut;
-using Log4Grid.DBModels;
 using System.Security.Cryptography;
+using System.Text;
+using Log4Grid.DBModels;
+using Peanut;
 
 namespace Log4Grid.DataAccess
 {
@@ -12,23 +11,18 @@ namespace Log4Grid.DataAccess
     {
         public virtual DB DB
         {
-            get
-            {
-                return Peanut.DB.DB103;
-            }
+            get { return DB.DB103; }
         }
-        private string mConnectionString;
+
+        private string _mConnectionString;
+
         public string ConnectionString
         {
-            get
-            {
-                return mConnectionString;
-
-            }
+            get { return _mConnectionString; }
             set
             {
-                mConnectionString = value;
-                DBContext.LoadEntityByAssembly(typeof(Log4Grid.DBModels.DBHost).Assembly);
+                _mConnectionString = value;
+                DBContext.LoadEntityByAssembly(typeof (DBHost).Assembly);
                 DBContext.SetConnectionDriver<T>(DB);
                 DBContext.SetConnectionString(DB, value);
             }
@@ -36,7 +30,6 @@ namespace Log4Grid.DataAccess
 
         public string MD5Encoding(string rawPass)
         {
-
             MD5 md5 = MD5.Create();
             byte[] bs = Encoding.UTF8.GetBytes(rawPass);
             byte[] hs = md5.ComputeHash(bs);
@@ -57,7 +50,7 @@ namespace Log4Grid.DataAccess
             if (!Exists(name))
             {
                 pages = 0;
-                return new List<Log4Grid.Models.LogModel>();
+                return new List<Models.LogModel>();
             }
             using (DBContext.ChangeTable<DBLog>(name))
             {
@@ -71,13 +64,11 @@ namespace Log4Grid.DataAccess
                 if (!string.IsNullOrEmpty(host))
                     exp &= DBLog.host == host;
                 int count = exp.Count<DBLog>(DB);
-                pages = count / 50;
-                if ((pages % 50) > 0)
+                pages = count/50;
+                if ((pages%50) > 0)
                     pages++;
                 return exp.List<DBLog, Models.LogModel>(DB, new Region(pageindex, 50), DBLog.createTime.Desc);
-
             }
-
         }
     }
 }

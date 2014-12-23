@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Log4Grid.Management.Web.Controllers.Filters
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
-    public class AjaxSuccess : System.Web.Mvc.ActionFilterAttribute
+    public class AjaxSuccess : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-
             base.OnActionExecuting(filterContext);
-
         }
+
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             ContentResult result = new ContentResult();
@@ -27,8 +23,6 @@ namespace Log4Grid.Management.Web.Controllers.Filters
 
             filterContext.Result = result;
             base.OnActionExecuted(filterContext);
-
         }
     }
-
 }

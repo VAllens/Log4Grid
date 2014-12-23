@@ -1,34 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Peanut;
+﻿using System.Collections.Generic;
 using Log4Grid.DBModels;
+using Peanut;
 
 namespace Log4Grid.DataAccess
 {
-    public abstract class UserHandlerBase<T> : Interfaces.IUserManagement where T : Peanut.IDriver, new()
+    public abstract class UserHandlerBase<T> : Interfaces.IUserManagement where T : IDriver, new()
     {
         public virtual DB DB
         {
-            get
-            {
-                return Peanut.DB.DB102;
-            }
+            get { return DB.DB102; }
         }
 
-        private string mConnectionString;
+        private string _mConnectionString;
+
         public string ConnectionString
         {
-            get
-            {
-                return mConnectionString;
-
-            }
+            get { return _mConnectionString; }
             set
             {
-                mConnectionString = value;
-                DBContext.LoadEntityByAssembly(typeof(Log4Grid.DBModels.DBHost).Assembly);
+                _mConnectionString = value;
+                DBContext.LoadEntityByAssembly(typeof (DBHost).Assembly);
                 DBContext.SetConnectionDriver<T>(DB);
                 DBContext.SetConnectionString(DB, value);
             }
@@ -42,13 +33,13 @@ namespace Log4Grid.DataAccess
             return null;
         }
 
-        public Models.User Create(string name, string paasword, string email, bool enabled)
+        public Models.User Create(string name, string password, string email, bool enabled)
         {
             if ((DBUser.name == name).Count<DBUser>(DB) > 0)
                 return null;
             DBUser user = new DBUser();
             user.Name = name;
-            user.Password = paasword;
+            user.Password = password;
             user.Email = email;
             user.Enabled = enabled;
             user.Save(DB);
@@ -63,7 +54,6 @@ namespace Log4Grid.DataAccess
         public void ChangePassword(string name, string newpassword)
         {
             (DBUser.name == name).Edit<DBUser>(DB, d => { d.Password = newpassword; });
-
         }
 
         public Models.User Exists(string name)
@@ -83,4 +73,3 @@ namespace Log4Grid.DataAccess
         }
     }
 }
-

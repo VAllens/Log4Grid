@@ -36,11 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LogSearchHandler.cs" />
@@ -54,17 +50,9 @@
       <Project>{B17756D8-86C7-4F22-BFAF-6EB0E9D2913A}</Project>
       <Name>Log4Grid.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Log4Grid.DBModels\Log4Grid.DBModels.csproj">
-      <Project>{8056B682-9BAA-43E7-84B9-8861788A22EB}</Project>
-      <Name>Log4Grid.DBModels</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Log4Grid.Interfaces\Log4Grid.Interfaces.csproj">
       <Project>{BB987F99-5A87-46A6-8C55-C0DF116A792B}</Project>
       <Name>Log4Grid.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Log4Grid.Models\Log4Grid.Models.csproj">
-      <Project>{77AC7897-D0A5-45C4-8CC8-17B33D820740}</Project>
-      <Name>Log4Grid.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

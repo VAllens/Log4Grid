@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Peanut;
-using System.Security.Cryptography;
 
 namespace Log4Grid.MySQL
 {
-    public class LogStore4MySQL : Log4Grid.DataAccess.LogStoreHandlerBase<MySqlDriver>
+    public class LogStore4MySQL : DataAccess.LogStoreHandlerBase<MySqlDriver>
     {
-
-        private Dictionary<string, string> mTables = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _mTables = new Dictionary<string, string>();
 
         protected override bool Exists(string table)
         {
-            if (mTables.ContainsKey(table))
+            if (_mTables.ContainsKey(table))
                 return true;
             SQL sql = @"SHOW TABLES LIKE @p1";
             sql = sql["p1", table];
@@ -23,7 +18,6 @@ namespace Log4Grid.MySQL
 
         protected override void OnCreateTable(string table)
         {
-
             SQL sql = string.Format(@"CREATE TABLE [{0}] (
   [ID] VARCHAR(50), 
   [App] VARCHAR(50), 
@@ -34,7 +28,7 @@ namespace Log4Grid.MySQL
 
 CREATE INDEX [{0}_index_createtime] ON [{0}] ([CreateTime] DESC);", table);
             sql.Execute(DB);
-            mTables.Add(table, table);
+            _mTables.Add(table, table);
         }
     }
 }
